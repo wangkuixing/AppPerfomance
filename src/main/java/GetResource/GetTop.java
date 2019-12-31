@@ -34,7 +34,7 @@ public class GetTop {
 		        while ((line = in.readLine()) != null) {
 					if(line.contains(packageName)&&line.contains("/")==false){
 						List<String> strList = Arrays.asList(line.split("\\s+"));
-						cpuStr = strList.get(8).trim();
+						cpuStr = strList.get(9).trim();
 						break;
 		        	}
 		        }

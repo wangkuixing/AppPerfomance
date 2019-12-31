@@ -21,7 +21,7 @@ public class GetFps {
     public static ArrayList<Double> frameRateList;
 
     public static void main(String[] args) throws InterruptedException, ArrayIndexOutOfBoundsException {
-        String result = "com.ss.android.ugc.aweme";
+        String result = "com.ytsc";
         System.out.println(fps(result));
         System.out.println(fps.toString());
 
