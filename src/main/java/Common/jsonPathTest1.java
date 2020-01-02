@@ -7,7 +7,7 @@ import Trigger.httpclient;
 import com.jayway.jsonpath.JsonPath;
 import net.sf.json.JSONObject;
 /**
- * Created by liyu on 2018/9/1.
+ * Created by wangkx on 2019/12/10.
  */
 public class jsonPathTest1 {
     public static  String  Url="http://api.douban.com/v2/movie/top250";

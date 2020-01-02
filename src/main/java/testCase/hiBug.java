@@ -34,8 +34,6 @@ public class hiBug {
 
     }
 
-
-
     @Test
     public void testCase() throws Exception {
         Log.logs("CaseName：登录创建Bug->搜索获取bugId->检查Bug是否创建");
@@ -56,13 +54,6 @@ public class hiBug {
             Log.logs("用例执行失败");
         }
     }
-
-
-
-
-
-
-
 
     @Test
     public void editBug() throws Exception {

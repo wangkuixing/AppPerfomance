@@ -3,6 +3,7 @@ package GetResource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,7 +48,8 @@ public class GetFlow {
                         String send = list.get(9).trim();
                         long a = Long.parseLong(rcv);
                         long b = Long.parseLong(send);
-                        System.out.println("【流量数据统计】：上行：" + ((a / 1024) / 1024) + "MB" + "上行：" + ((b / 1024) / 1024) + "MB");
+                        DecimalFormat df=new DecimalFormat("0.00");
+                        System.out.println("【流量数据统计】：上行：" + df.format(((float)a / 1024 / 1024)) + "MB" + "上行：" + df.format(((float)b / 1024) / 1024) + "MB");
                         str3 = ((a + b) / 1024) / 1024;
                         break;
                     }

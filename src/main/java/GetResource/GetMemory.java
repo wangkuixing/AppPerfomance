@@ -29,8 +29,17 @@ public class GetMemory {
         String heapStr = "0";
         try {
             Runtime runtime = Runtime.getRuntime();
-            String[] cmd = new String[]{"cmd.exe", "/C", "adb -s "+Main.devices+" shell top -n 1| findstr "+ PackageName};
-            Process proc = runtime.exec(cmd);
+
+            String[] winCmd = new String[]{"cmd.exe", "/C", "adb -s "+Main.devices+" shell top -n 1| findstr "+ PackageName};
+            String macCmd = "adb -s "+Main.devices+" shell top -n 1| findstr "+ PackageName;
+            Process proc;
+            String osname=System.getProperty("os.name");
+            if (osname.startsWith("Windows")){
+                proc = runtime.exec(winCmd);
+            } else {
+                proc = runtime.exec(macCmd);
+            }
+
             try {
                 if (proc.waitFor() != 0) {
                     System.err.println("exit value = " + proc.exitValue());

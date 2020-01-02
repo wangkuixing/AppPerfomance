@@ -28,25 +28,33 @@ public class GetFps {
     }
 
     public static double[] fps(String packages) throws InterruptedException, ArrayIndexOutOfBoundsException {
+        String[] winCmd = new String[]{"cmd.exe", "/C", "adb -s "+Main.devices+" shell dumpsys gfxinfo "+packages};
         String gfxCMD = "adb -s " + Main.devices + " shell dumpsys gfxinfo " + packages;
         double[] result = new double[2];
         try {
             fps = new ArrayList();
             frameRateList = new ArrayList();
             Runtime.getRuntime().exec(clearCommand);
-            result = getFps(gfxCMD);
+            String osname=System.getProperty("os.name");
+            result = getFps(gfxCMD, winCmd);
         } catch (Exception e) {
             // TODO: handle exception
         }
         return result;
     }
 
-    public static double[] getFps(String gfxCMD) {
+    public static double[] getFps(String gfxCMD, String[] winCmd) {
         double[] result = new double[2];
         float ffps = 0;
         BufferedReader br = null, br2 = null, br3 = null;
         try {
-            Process prt = Runtime.getRuntime().exec(gfxCMD);
+            Process prt;
+            String osname=System.getProperty("os.name");
+            if (osname.startsWith("Windows")){
+                prt = Runtime.getRuntime().exec(winCmd);
+            } else {
+                prt = Runtime.getRuntime().exec(gfxCMD);
+            }
             br3 = new BufferedReader(new InputStreamReader(prt.getInputStream()));
             String line;
             boolean flag = false;
@@ -82,6 +90,7 @@ public class GetFps {
                 }
             }
             if ((frames2 + vsync_overtime) > 0) {
+                //fps>60也输出60
                 ffps = frames2 * 60 / (frames2 + vsync_overtime);
                 JumpingFrames += jankCount;
                 TalFrames += frames2;

@@ -3,7 +3,7 @@ package testCase;
 import org.testng.annotations.Test;
 
 /**
- * Created by liyu on 2017/8/3.
+ * Created by wangkx on 2019/12/14.
  */
 
 public class TestngMethods {

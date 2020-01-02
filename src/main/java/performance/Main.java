@@ -10,10 +10,11 @@ import static GetResource.GetTop.topCpu;
 import static GetResource.Getbattery.battery;
 
 /**
- * Created by liyu on 2018/10/25.
+ * Created by wangkx on 2019/12/25.
  */
 public class Main {
-    public static String devices = "6SJNW18627019519";
+//    public static String devices = "6SJNW18627019519";
+    public static String devices = "1f44d60d";
     public static String packageName = "com.ytsc";
     public static ArrayList<Double> cpuList = new ArrayList<>();
     public static ArrayList<Double> memList = new ArrayList<>();
