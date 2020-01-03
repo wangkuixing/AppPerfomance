@@ -1,5 +1,7 @@
 package performance;
 
+import Common.SqlConnect;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -58,7 +60,7 @@ public class Main {
 //        System.out.println("---------------------------------------------------");
 //    }
 
-    public void recordData() throws IOException, InterruptedException {
+    public static void recordData(int action) throws IOException, InterruptedException {
         Double cpu = topCpu(packageName);
         Double mem = talHeapSize(packageName);
         Double flow = (double)(getWifiFlow(packageName));
@@ -80,5 +82,12 @@ public class Main {
         fpsList.add(fps);
         lostFrameList.add(lostFrameRate);
         batteryList.add(battery);
+
+        SqlConnect sql = new SqlConnect();
+        sql.create(action, cpu, mem, flow, fps, lostFrameRate, battery);
+    }
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        recordData(1);
     }
 }

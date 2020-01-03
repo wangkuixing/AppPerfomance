@@ -1,26 +1,39 @@
 package Common;
 
 import java.sql.*;
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Timer;
 
 public class SqlConnect {
     public void create(int action, double cpu, double memory, double flow, double fps, double lostframe, double battery){
         Connection conn;
         PreparedStatement stmt;
-        String driver = "com.mysql.jdbc.Driver";
+        String driver = "com.mysql.cj.jdbc.Driver";
         String url = "jdbc:mysql://192.168.0.210:3306/app_perfomance?useSSL=false";
         String user = "root";
         String passwd = "root";
         String sql = "insert into appdata values (?,?,?,?,?,?,?,?,?,?)";
-        Date date = new Date();
-        date.getTime();
 
+        //获取当前日期，并转换为java.sql.Date格式
+        java.util.Date udate=new java.util.Date();
+        Date date = new Date(udate.getTime());
+
+        //获取当前时间，并转换为java.sql.Time格式
+        SimpleDateFormat format=new SimpleDateFormat("HH:mm:ss");
+        String sdate=format.format(udate);
+        Time time = null;
+        try {
+            time = new Time(format.parse(sdate).getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(url, user, passwd);
             stmt = conn.prepareStatement(sql);
-            stmt.setNString(1, "");
+            stmt.setInt(1, 6);
             stmt.setInt(2, action);
             stmt.setDouble(3, cpu);
             stmt.setDouble(4, memory);
@@ -28,9 +41,8 @@ public class SqlConnect {
             stmt.setDouble(6, fps);
             stmt.setDouble(7, lostframe);
             stmt.setDouble(8, battery);
-            stmt.setDate();
-            stmt.setTime();
-            stmt.setInt(4,2017);
+            stmt.setDate(9, date);
+            stmt.setTime(10, time);
             stmt.executeUpdate();
 
         } catch (ClassNotFoundException e) {
