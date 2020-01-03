@@ -14,7 +14,7 @@ public class GetTop {
 
 	public static void main( String[] args ) throws IOException{
 		for ( int i = 0; i < 10; i++ ){
-			System.out.println( " Cpu：" + topCpu( "com.ss.android.ugc.aweme" ) );
+			System.out.println( " Cpu：" + topCpu( "com.ytsc" ) );
 		}
 	}
 
@@ -23,8 +23,15 @@ public class GetTop {
 		  try{
 		  	Runtime runtime = Runtime.getRuntime();
 		    System.out.println(runtime);
-		    String[] cmd = new String[]{"cmd.exe", "/C", "adb -s "+Main.devices+" shell top -n 1| findstr "+packageName};
-		    Process proc = runtime.exec(cmd);
+		    String[] winCmd = new String[]{"cmd.exe", "/C", "adb -s "+Main.devices+" shell top -n 1| findstr "+packageName};
+		    String macCmd = "adb -s "+Main.devices+" shell top -n 1| findstr "+packageName;
+		  	Process proc;
+		    String osname=System.getProperty("os.name");
+		    if (osname.startsWith("Windows")){
+		    	proc = runtime.exec(winCmd);
+		    } else {
+		    	proc = runtime.exec(macCmd);
+		    }
 		    try {
 		        if (proc.waitFor() != 0) {
 		            System.err.println("exit value = " + proc.exitValue());

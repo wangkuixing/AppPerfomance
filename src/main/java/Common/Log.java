@@ -3,7 +3,7 @@ package Common;
 import org.testng.Reporter;
 
 /**
- * Created by wangkx on 2019/12/25.
+ * Created by wangkx on 2019/8/31.
  */
 public class Log {
 

@@ -27,10 +27,17 @@ public class GetFlow {
         String Pid = PID(PackageName);
         System.out.println(Pid);
         long str3 = 0;
-        String[] cmd = new String[]{"cmd.exe", "/C","adb -s " + Main.devices + " shell cat /proc/" + Pid + "/net/dev"};
         try {
             Runtime runtime = Runtime.getRuntime();
-            Process proc = runtime.exec(cmd);
+            String[] winCmd = new String[]{"cmd.exe", "/C","adb -s " + Main.devices + " shell cat /proc/" + Pid + "/net/dev"};
+            String macCmd = "adb -s " + Main.devices + " shell cat /proc/" + Pid + "/net/dev";
+            Process proc;
+            String osname=System.getProperty("os.name");
+            if (osname.startsWith("Windows")){
+                proc = runtime.exec(winCmd);
+            } else {
+                proc = runtime.exec(macCmd);
+            }
             try {
                 if (proc.waitFor() != 0) {
                     System.err.println("exit value = " + proc.exitValue());
