@@ -1,0 +1,6 @@
+---
+mconfig:
+  mysql: jdbc:mysql://192.168.0.210:3306/app_perfomance?useSSL=false
+  user: root
+  passwd: root
+  phoneid: 6SJNW18627019519

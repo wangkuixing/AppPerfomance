@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
-import performance.Main;
+import Common.Commons;
 
 public class GetFlow {
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -24,13 +24,15 @@ public class GetFlow {
      * @throws IOException
      */
     public static long getWifiFlow(String PackageName) throws IOException {
+        Commons commons = Commons.load("/globalConfig.yaml");
+        String devices = commons.mconfig.phoneid;
         String Pid = PID(PackageName);
         System.out.println(Pid);
         long str3 = 0;
         try {
             Runtime runtime = Runtime.getRuntime();
-            String[] winCmd = new String[]{"cmd.exe", "/C","adb -s " + Main.devices + " shell cat /proc/" + Pid + "/net/dev"};
-            String macCmd = "adb -s " + Main.devices + " shell cat /proc/" + Pid + "/net/dev";
+            String[] winCmd = new String[]{"cmd.exe", "/C","adb -s " + devices + " shell cat /proc/" + Pid + "/net/dev"};
+            String macCmd = "adb -s " + devices + " shell cat /proc/" + Pid + "/net/dev";
             Process proc;
             String osname=System.getProperty("os.name");
             if (osname.startsWith("Windows")){
@@ -115,11 +117,13 @@ public class GetFlow {
 //    }
 
     public static String PID(String PackageName) throws IOException {
+        Commons commons = Commons.load("/globalConfig.yaml");
+        String devices = commons.mconfig.phoneid;
         String PID = null;
         Runtime runtime = Runtime.getRuntime();
         Process proc = null;
         try {
-            String[] cmd = new String[]{"cmd.exe", "/C", "adb -s " + Main.devices + " shell ps | findstr " + PackageName};
+            String[] cmd = new String[]{"cmd.exe", "/C", "adb -s " + devices + " shell ps | findstr " + PackageName};
             proc = runtime.exec(cmd);
             if (proc.waitFor() != 0) {
                 System.err.println("exit value = " + proc.exitValue());

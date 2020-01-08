@@ -3,16 +3,16 @@ package Common;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Timer;
 
 public class SqlConnect {
     public void create(int action, double cpu, double memory, double flow, double fps, double lostframe, double battery){
         Connection conn;
         PreparedStatement stmt;
         String driver = "com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://192.168.0.210:3306/app_perfomance?useSSL=false";
-        String user = "root";
-        String passwd = "root";
+        Commons commons = Commons.load("/globalConfig.yaml");
+        String url  = commons.mconfig.mysql;
+        String user = commons.mconfig.user;
+        String passwd = commons.mconfig.passwd;
         String sql = "insert into appdata values (?,?,?,?,?,?,?,?,?,?)";
 
         //获取当前日期，并转换为java.sql.Date格式
@@ -33,7 +33,7 @@ public class SqlConnect {
             Class.forName(driver);
             conn = DriverManager.getConnection(url, user, passwd);
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, 6);
+            stmt.setNull(1, 1);
             stmt.setInt(2, action);
             stmt.setDouble(3, cpu);
             stmt.setDouble(4, memory);

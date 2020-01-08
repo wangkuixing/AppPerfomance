@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import performance.Main;
+import Common.Commons;
 
 public class Getbattery {
 	public static void main( String[] args ) throws IOException, InterruptedException
@@ -15,9 +15,11 @@ public class Getbattery {
 		}
 	}
 	public static double battery() throws IOException{
+        Commons commons = Commons.load("/globalConfig.yaml");
+		String devices = commons.mconfig.phoneid;
 		double	batt	= 0;
 		Runtime runtime = Runtime.getRuntime();
-		Process proc	= runtime.exec( "adb -s "+ Main.devices+" shell dumpsys battery" );
+		Process proc	= runtime.exec( "adb -s "+ devices+" shell dumpsys battery" );
 		String	str3="0";
 		try {
 			if ( proc.waitFor() != 0 ){

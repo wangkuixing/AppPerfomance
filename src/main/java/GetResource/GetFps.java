@@ -5,10 +5,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import Common.Commons;
-import performance.Main;
+import Common.Commons;
 
 public class GetFps {
-
     private static int WAITTIME = 1600;
     //采样频率，单位ms
     private static float countTime = 0;
@@ -28,8 +27,10 @@ public class GetFps {
     }
 
     public static double[] fps(String packages) throws InterruptedException, ArrayIndexOutOfBoundsException {
-        String[] winCmd = new String[]{"cmd.exe", "/C", "adb -s "+Main.devices+" shell dumpsys gfxinfo "+packages};
-        String gfxCMD = "adb -s " + Main.devices + " shell dumpsys gfxinfo " + packages;
+        Commons commons = Commons.load("/globalConfig.yaml");
+        String devices = commons.mconfig.phoneid;
+        String[] winCmd = new String[]{"cmd.exe", "/C", "adb -s "+ devices+" shell dumpsys gfxinfo "+packages};
+        String gfxCMD = "adb -s " + devices + " shell dumpsys gfxinfo " + packages;
         double[] result = new double[2];
         try {
             fps = new ArrayList();

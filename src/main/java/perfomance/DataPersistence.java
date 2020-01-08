@@ -1,5 +1,6 @@
-package performance;
+package perfomance;
 
+import Common.Commons;
 import Common.SqlConnect;
 
 import java.io.IOException;
@@ -14,8 +15,9 @@ import static GetResource.Getbattery.battery;
 /**
  * Created by wangkx on 2019/12/25.
  */
-public class Main {
-    public static String devices = "6SJNW18627019519";
+public class DataPersistence {
+    Commons commons = Commons.load("/globalConfig.yaml");
+    public String devices = commons.mconfig.phoneid;
 //    public static String devices = "1f44d60d";
     public static String packageName = "com.ytsc";
     public static ArrayList<Double> cpuList = new ArrayList<>();

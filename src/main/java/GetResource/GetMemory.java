@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import Common.Commons;
-import performance.Main;
+import Common.Commons;
 
 public class GetMemory {
 
@@ -25,13 +25,15 @@ public class GetMemory {
      * @throws IOException
      */
     public static double talHeapSize(String PackageName) throws IOException {
+        Commons commons = Commons.load("/globalConfig.yaml");
+        String devices = commons.mconfig.phoneid;
         double Heap = 0;
         String heapStr = "0";
         try {
             Runtime runtime = Runtime.getRuntime();
 
-            String[] winCmd = new String[]{"cmd.exe", "/C", "adb -s "+Main.devices+" shell top -n 1| findstr "+ PackageName};
-            String macCmd = "adb -s "+Main.devices+" shell top -n 1| findstr "+ PackageName;
+            String[] winCmd = new String[]{"cmd.exe", "/C", "adb -s "+ devices+" shell top -n 1| findstr "+ PackageName};
+            String macCmd = "adb -s "+ devices+" shell top -n 1| findstr "+ PackageName;
             Process proc;
             String osname=System.getProperty("os.name");
             if (osname.startsWith("Windows")){

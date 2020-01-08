@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import Common.Commons;
-import performance.Main;
+import Common.Commons;
 
 public class GetTop {
 	private static  double Cpu = 0;
@@ -19,12 +19,14 @@ public class GetTop {
 	}
 
 	  public static double topCpu(String packageName) throws IOException {
+          Commons commons = Commons.load("/globalConfig.yaml");
+		  String devices = commons.mconfig.phoneid;
 		  String cpuStr="0";
 		  try{
 		  	Runtime runtime = Runtime.getRuntime();
 		    System.out.println(runtime);
-		    String[] winCmd = new String[]{"cmd.exe", "/C", "adb -s "+Main.devices+" shell top -n 1| findstr "+packageName};
-		    String macCmd = "adb -s "+Main.devices+" shell top -n 1| findstr "+packageName;
+		    String[] winCmd = new String[]{"cmd.exe", "/C", "adb -s "+ devices+" shell top -n 1| findstr "+packageName};
+		    String macCmd = "adb -s "+ devices+" shell top -n 1| findstr "+packageName;
 		  	Process proc;
 		    String osname=System.getProperty("os.name");
 		    if (osname.startsWith("Windows")){
