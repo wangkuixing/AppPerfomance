@@ -33,7 +33,7 @@ public class GetMemory {
             Runtime runtime = Runtime.getRuntime();
 
             String[] winCmd = new String[]{"cmd.exe", "/C", "adb -s "+ devices+" shell top -n 1| findstr "+ PackageName};
-            String macCmd = "adb -s "+ devices+" shell top -n 1| findstr "+ PackageName;
+            String macCmd = "adb -s "+ devices+" shell top -n 1| grep "+ PackageName;
             Process proc;
             String osname=System.getProperty("os.name");
             if (osname.startsWith("Windows")){

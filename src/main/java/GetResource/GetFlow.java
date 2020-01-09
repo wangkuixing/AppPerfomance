@@ -123,8 +123,14 @@ public class GetFlow {
         Runtime runtime = Runtime.getRuntime();
         Process proc = null;
         try {
-            String[] cmd = new String[]{"cmd.exe", "/C", "adb -s " + devices + " shell ps | findstr " + PackageName};
-            proc = runtime.exec(cmd);
+            String[] winCmd = new String[]{"cmd.exe", "/C", "adb -s " + devices + " shell ps | findstr " + PackageName};
+            String macCmd = "adb -s " + devices + " shell ps | grep " + PackageName;
+            String osname=System.getProperty("os.name");
+            if (osname.startsWith("Windows")){
+                proc = runtime.exec(winCmd);
+            } else {
+                proc = runtime.exec(macCmd);
+            }
             if (proc.waitFor() != 0) {
                 System.err.println("exit value = " + proc.exitValue());
             }

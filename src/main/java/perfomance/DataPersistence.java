@@ -89,7 +89,7 @@ public class DataPersistence {
         sql.create(action, cpu, mem, flow, fps, lostFrameRate, battery);
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        recordData(1);
-    }
+//    public static void main(String[] args) throws IOException, InterruptedException {
+//        recordData(1);
+//    }
 }

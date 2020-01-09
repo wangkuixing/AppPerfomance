@@ -26,7 +26,7 @@ public class GetTop {
 		  	Runtime runtime = Runtime.getRuntime();
 		    System.out.println(runtime);
 		    String[] winCmd = new String[]{"cmd.exe", "/C", "adb -s "+ devices+" shell top -n 1| findstr "+packageName};
-		    String macCmd = "adb -s "+ devices+" shell top -n 1| findstr "+packageName;
+		    String macCmd = "adb -s "+ devices+" shell top -n 1| grep "+packageName;
 		  	Process proc;
 		    String osname=System.getProperty("os.name");
 		    if (osname.startsWith("Windows")){
